@@ -1,0 +1,157 @@
+/* ─────────────────────────────────────────
+   Discord High Contrast color tokens
+   ───────────────────────────────────────── */
+:root {
+  --bg-primary:      #000000;   /* deepest background */
+  --bg-secondary:    #0d0d0d;   /* pane background */
+  --bg-tertiary:     #1a1a1a;   /* input / canvas bg */
+  --bg-header:       #111111;   /* pane header strip */
+
+  --border:          #2a2a2a;   /* subtle divider */
+  --border-focus:    #00aff4;   /* Discord brand blue on focus */
+
+  --text-normal:     #dbdee1;   /* primary text */
+  --text-muted:      #949ba4;   /* labels / placeholders */
+  --text-console:    #23a55a;   /* console green */
+
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  --font-ui:   'gg sans', 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --radius:    4px;
+  --gap:       6px;
+  --header-h:  28px;
+}
+
+/* ─── Reset ──────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  color: var(--text-normal);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  overflow: hidden;
+}
+
+/* ─── Top-level layout ───────────────────── */
+.layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  gap: var(--gap);
+  padding: var(--gap);
+}
+
+/* ─── Generic pane ───────────────────────── */
+.pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.pane__header {
+  display: flex;
+  align-items: center;
+  height: var(--header-h);
+  padding: 0 10px;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.pane__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+/* ─── Left pane: editor ──────────────────── */
+.pane--editor {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+/* ─── Right column ───────────────────────── */
+.pane--right {
+  flex: 1 1 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* ─── Canvas pane ────────────────────────── */
+.pane--canvas {
+  flex: 1 1 70%;
+  min-height: 0;
+}
+
+/* ─── Console pane ───────────────────────── */
+.pane--console {
+  flex: 0 0 28%;   /* intentionally shorter — it's the console */
+  min-height: 0;
+}
+
+/* ─── Shared textarea styles ─────────────── */
+textarea {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  background: var(--bg-tertiary);
+  color: var(--text-normal);
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  tab-size: 2;
+  caret-color: var(--border-focus);
+}
+
+textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+textarea:focus {
+  box-shadow: inset 0 0 0 1px var(--border-focus);
+}
+
+/* ─── Editor-specific ────────────────────── */
+.editor {
+  color: var(--text-normal);
+}
+
+/* ─── Console-specific ───────────────────── */
+.console {
+  color: var(--text-console);
+  font-size: 12px;
+  cursor: default;
+}
+
+/* ─── Canvas element ─────────────────────── */
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-tertiary);
+}

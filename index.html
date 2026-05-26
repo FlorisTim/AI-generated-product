@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Editor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- Left: Code Editor -->
+    <div class="pane pane--editor">
+      <div class="pane__header">
+        <span class="pane__label">editor</span>
+      </div>
+      <textarea class="editor" spellcheck="false" placeholder="// write your code here..."></textarea>
+    </div>
+
+    <!-- Right: Canvas + Console -->
+    <div class="pane pane--right">
+
+      <div class="pane pane--canvas">
+        <div class="pane__header">
+          <span class="pane__label">canvas</span>
+        </div>
+        <canvas class="canvas"></canvas>
+      </div>
+
+      <div class="pane pane--console">
+        <div class="pane__header">
+          <span class="pane__label">console</span>
+        </div>
+        <textarea class="console" spellcheck="false" placeholder="> output appears here..." readonly></textarea>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

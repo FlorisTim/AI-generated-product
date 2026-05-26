@@ -155,3 +155,57 @@ textarea:focus {
   height: 100%;
   background: var(--bg-tertiary);
 }
+
+/* ─── Syntax-highlighted editor overlay ─── */
+
+/* The wrapper fills the pane below the header */
+.editor-wrapper {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Backdrop renders the coloured HTML behind the textarea */
+.editor-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;          /* scrolled in sync via JS */
+  pointer-events: none;
+  background: var(--bg-tertiary);
+}
+
+.editor-highlighted {
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre;
+  word-break: normal;
+  color: var(--text-normal);  /* fallback for unhighlighted tokens */
+}
+
+/* The textarea sits on top, transparent so the backdrop shows through */
+.editor-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  color: transparent !important;   /* hide native text — backdrop takes over */
+  caret-color: var(--border-focus) !important;
+  z-index: 1;
+}
+
+/* ─── Highlight token colours ─────────────── */
+.hl-method {
+  color: #f0c040;   /* warm yellow */
+}
+
+.hl-string {
+  color: #e06c6c;   /* muted red */
+}
+
+.hl-number {
+  color: #79c0ff;   /* light blue */
+}

@@ -1,44 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Code Editor</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Editor</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="layout">
+<div class="layout">
 
     <!-- Left: Code Editor -->
     <div class="pane pane--editor">
-      <div class="pane__header">
-        <span class="pane__label">editor</span>
-      </div>
-      <textarea class="editor" spellcheck="false" placeholder="// write your code here..."></textarea>
+
+        <div class="pane__header">
+        <span class="pane__label">
+            High Level
+        </span>
+
+            <button
+                    class="run-btn"
+                    id="transpileBtn">
+                transpile
+            </button>
+        </div>
+
+        <textarea
+                id="highEditor"
+                class="editor"
+                spellcheck="false"></textarea>
+
+    </div>
+
+    <div class="pane pane--editor">
+
+        <div class="pane__header">
+        <span class="pane__label">
+            Low Level
+        </span>
+
+            <button
+                    class="run-btn"
+                    id="runBtn">
+                run
+            </button>
+        </div>
+
+        <textarea
+                id="lowEditor"
+                class="editor"
+                spellcheck="false"></textarea>
+
     </div>
 
     <!-- Right: Canvas + Console -->
     <div class="pane pane--right">
 
-      <div class="pane pane--canvas">
-        <div class="pane__header">
-          <span class="pane__label">canvas</span>
+        <div class="pane pane--canvas">
+            <div class="pane__header">
+                <span class="pane__label">canvas</span>
+            </div>
+            <canvas class="canvas"></canvas>
         </div>
-        <canvas class="canvas"></canvas>
-      </div>
 
-      <div class="pane pane--console">
-        <div class="pane__header">
-          <span class="pane__label">console</span>
+        <div class="pane pane--console">
+            <div class="pane__header">
+                <span class="pane__label">console</span>
+            </div>
+            <textarea class="console" spellcheck="false" placeholder="> output appears here..." readonly></textarea>
         </div>
-        <textarea class="console" spellcheck="false" placeholder="> output appears here..." readonly></textarea>
-      </div>
 
     </div>
 
-  </div>
+</div>
+<script src="highlevel.js"></script>
+<script src="parser.js"></script>
+<script>
 
-  <script src="parser.js"></script>
+    const highEditor =
+        document.getElementById("highEditor");
+
+    const lowEditor =
+        document.getElementById("lowEditor");
+
+    const transpileBtn =
+        document.getElementById("transpileBtn");
+
+    transpileBtn.addEventListener(
+        "click",
+        () => {
+
+            try {
+
+                lowEditor.value =
+                    transpileHighLevel(
+                        highEditor.value
+                    );
+
+            }
+            catch (err) {
+
+                alert(err.message);
+
+            }
+
+        }
+    );
+
+    highEditor.value =
+        `class Player {
+
+    method spawn() {
+
+        DRAW_CIRCLE 150 150 50;
+
+    }
+
+    method hello() {
+
+        LOG "hello";
+
+    }
+
+}
+
+Player p;
+
+p.spawn();
+p.hello();
+`;
+
+</script>
 </body>
 </html>

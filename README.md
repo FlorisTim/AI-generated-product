@@ -38,3 +38,5 @@ AI did stimulate some of my creative process because it would expand on my ideas
 
 I really did not like using AI, i do like the result and that i got to develop it fully without really having to engage myself,
 for me this also has the downside that now i have a finsished product i could explain conceptually but not what's really happening behind the scenes.
+
+<sub>❤️ markdown</sub>

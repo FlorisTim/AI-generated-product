@@ -188,11 +188,15 @@
 
     function transpileHighLevel(source) {
 
+
+
         const classes =
             parseClasses(source);
 
         source =
             removeClasses(source);
+
+
 
         const objects =
             new Map();
@@ -284,8 +288,56 @@
             );
         }
 
-        return output.join("\n");
+
+        return  transpileRepeats(output.join("\n"));
     }
+
+    function transpileRepeats(source) {
+        let loopCounter = 0;
+
+        const repeatRegex = /repeat\s*\(\s*([A-Za-z0-9_]+)\s*\)\s*\{/g;
+
+        while (true) {
+            const match = repeatRegex.exec(source);
+            if (!match) break;
+
+            const amountExpr = match[1];
+            const braceStart = match.index + match[0].length - 1;
+            const braceEnd = findMatchingBrace(source, braceStart);
+
+            const body = source.slice(braceStart + 1, braceEnd);
+
+            // Generate unique names
+            const loopIndex = `loop${loopCounter}index`;
+            const startLabel = `P ${loopCounter * 2}`;
+            const endLabel = `${loopCounter * 2 + 1}`;
+
+            loopCounter++;
+
+            const replacement =
+                `DECLARE ${loopIndex} 0;
+${startLabel};
+IF ${amountExpr} < ${loopIndex};
+JUMP ${endLabel};
+ENDIF;
+
+${body.trim()}
+
+INCREMENT ${loopIndex} 1;
+JUMP ${startLabel.split(" ")[1]};
+P ${endLabel};`;
+
+            source =
+                source.slice(0, match.index) +
+                replacement +
+                source.slice(braceEnd + 1);
+
+            repeatRegex.lastIndex = 0;
+        }
+
+        return source;
+    }
+
 
     window.transpileHighLevel =
         transpileHighLevel;
